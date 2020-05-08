@@ -10,20 +10,19 @@ public class FindTheColours {
     {
         public static void main(String[] args)
         {
-            boolean slow = true;
-            //String fileName = "C:/UX/TheLordOfTheRings.txt";
-            String fileName = "data/Input.txt";
+            int millis = 1000;
+            String fileName = "data/Wiki.txt";
 
-            if (slow) System.out.println("Hi! This is gonna take a while...");
+            if (millis!=0) System.out.println("Hi! This is gonna take a while...");
             else System.out.println("Hi! Gonna be fast...");
 
             var coloursStore = new ColoursStore();
-            coloursStore = ReadTheColours(fileName, slow);
+            coloursStore = ReadTheColours(fileName, millis);
 
             ListTheColours(coloursStore);
         }
 
-        private static ColoursStore ReadTheColours(String fileName, boolean addDelays) {
+        private static ColoursStore ReadTheColours(String fileName, int millis) {
             BufferedReader reader;
             var coloursStore = new ColoursStore();
             try
@@ -31,7 +30,7 @@ public class FindTheColours {
                 reader = new BufferedReader(new FileReader(fileName));
                 String line = reader.readLine();
                 while (line != null){
-                    if (addDelays) SlowDown();
+                    if (millis!=0) SlowDown(millis);
                     line = line.toLowerCase();
                     var coloursInLine = ContainsAColour(line);
                     coloursStore.Update(coloursInLine);
@@ -69,9 +68,9 @@ public class FindTheColours {
             }
         }
 
-        public static void SlowDown(){
+        public static void SlowDown(int millis){
             try {
-                Thread.sleep(10);
+                Thread.sleep(millis);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }

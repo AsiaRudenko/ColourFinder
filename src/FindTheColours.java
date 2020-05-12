@@ -1,17 +1,17 @@
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
-import java.sql.Timestamp;
 import java.util.Set;
 
 public class FindTheColours {
 
-    public static class Reader
+    public static class ColourFinder
     {
         public static void main(String[] args)
         {
-            int millis = 1000;
-            String fileName = "data/Wiki.txt";
+            // 1000 is enough to make both Input and Wiki a while
+            int millis = 0;
+            String fileName = "data/Input.txt";
 
             if (millis!=0) System.out.println("Hi! This is gonna take a while...");
             else System.out.println("Hi! Gonna be fast...");
@@ -28,12 +28,13 @@ public class FindTheColours {
             try
             {
                 reader = new BufferedReader(new FileReader(fileName));
-                String line = reader.readLine();
+                String line = reader.readLine().toLowerCase();
+                int lineCounter = 0;
                 while (line != null){
                     if (millis!=0) SlowDown(millis);
-                    line = line.toLowerCase();
                     var coloursInLine = ContainsAColour(line);
                     coloursStore.Update(coloursInLine);
+                    lineCounter++;
                     line = reader.readLine();
                 }
                 reader.close();
@@ -56,15 +57,15 @@ public class FindTheColours {
                         lastIndex += colourString.length();
                     }
                 }
-                coloursInLine.coloursCounterDict.put(colourString, coloursInLine.coloursCounterDict.get(colourString)+count);
+                coloursInLine.coloursCounter.put(colourString, coloursInLine.coloursCounter.get(colourString)+count);
             }
             return coloursInLine;
         }
 
         public static void ListTheColours(ColoursStore coloursStore){
-            Set<String> setOfColours = coloursStore.coloursCounterDict.keySet();
+            Set<String> setOfColours = coloursStore.coloursCounter.keySet();
             for (String key : setOfColours){
-                System.out.println(key+": "+ coloursStore.coloursCounterDict.get(key));
+                System.out.println(key+": "+ coloursStore.coloursCounter.get(key));
             }
         }
 

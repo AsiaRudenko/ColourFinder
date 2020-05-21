@@ -9,15 +9,13 @@ public class FindTheColours {
     {
         public static void main(String[] args)
         {
-            // 1000 is enough to make both Input and Wiki a while
-            int millis = 1000;
             String fileName = "data/Wiki.txt";
-
-            if (millis!=0) System.out.println("Hi! This is gonna take a while...");
+            var delayProvider = new DelayProvider();
+            if (delayProvider.Millis!=0) System.out.println("Hi! This is gonna take a while...");
             else System.out.println("Hi! Gonna be fast...");
 
             var coloursStore = new ColoursStore();
-            coloursStore = ReadTheColours(fileName, millis);
+            coloursStore = ReadTheColours(fileName, delayProvider.Millis);
 
             ListTheColours(coloursStore);
         }
